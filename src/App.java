@@ -1,11 +1,13 @@
 import java.util.ArrayList;
+
+import java.util.Comparator;
 import java.util.List;
 
 public class App {
 
-    public static void main(String[] args) {
-        App app = new App();
-        List<Person> persons = new ArrayList<>();
+    private List<Person> persons = new ArrayList<>();
+
+    public App(){
         persons.add(new Person("Asia", 20));
         persons.add(new Person("Asia", 15));
         persons.add(new Person("Maciek", 18));
@@ -13,7 +15,11 @@ public class App {
         persons.add(new Person("Artur", 16));
         persons.add(new Person("Maciek", 22));
         persons.add(new Person("Asia", 24));
-        for (Person person : app.transform(persons)){
+    }
+
+    public static void main(String[] args) {
+        App app = new App();
+        for (Person person : app.transform(app.getPersons())){
             System.out.println(person.getName() + " " + person.getAge());
         }
     }
@@ -27,6 +33,7 @@ public class App {
                 findPersonByName(person.getName(), transformed).setAge(person.getAge());
             }
         }
+        transformed.sort(Comparator.comparing(Person::getName));
         return transformed;
     }
 
@@ -46,5 +53,9 @@ public class App {
             }
         }
         return null;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
     }
 }
